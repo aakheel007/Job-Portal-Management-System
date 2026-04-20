@@ -1,12 +1,12 @@
-# 💼 Job Portal Management System
+# Job Portal Management System
 
 A full-stack **Job Portal Management System** built using **Spring Boot** that allows students to apply for jobs and recruiters to manage job postings efficiently.
 
 ---
 
-## 🚀 Features
+##  Features
 
-### 👨‍🎓 Student
+### Student
 
 * Register & login
 * View available jobs
@@ -14,16 +14,12 @@ A full-stack **Job Portal Management System** built using **Spring Boot** that a
 * Upload resume
 * Track application status
 
-### 🏢 Recruiter
+###  Recruiter
 
 * Post new jobs
 * View applicants
 * Update application status
 
-### ⚙️ Admin (Optional)
-
-* Manage users
-* Monitor job listings
 
 ---
 
@@ -32,7 +28,6 @@ A full-stack **Job Portal Management System** built using **Spring Boot** that a
 * **Backend:** Spring Boot (Java)
 * **Database:** MySQL
 * **Build Tool:** Maven
-* **API Testing:** Postman
 * **Version Control:** Git & GitHub
 
 ---
@@ -76,7 +71,7 @@ Update `application.properties`:
 ```properties
 spring.datasource.url=jdbc:mysql://localhost:3306/job_portal
 spring.datasource.username=root
-spring.datasource.password=your_password
+spring.datasource.password=
 ```
 
 ### 3. Run the project
@@ -99,8 +94,17 @@ mvn spring-boot:run
 ---
 
 ## 📸 Screenshots
+### Dashboard
+![Dashboard](![Dashboard](image-2.png))
 
-*(Add your screenshots here)*
+### Registeration Page
+![Registeration Page](![Registeration](image-1.png))
+
+### Login Page
+![Login]![Login](image-3.png)
+
+### Job Explore Page
+![Explore]![Explore](image-4.png)
 
 ---
 
