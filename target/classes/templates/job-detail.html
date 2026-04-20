@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html th:replace="~{layout :: layout(~{::content}, ${job.title} + ' - CareerFlow')}">
+<body>
+    <div th:fragment="content" style="max-width: 1000px; margin: 4rem auto; padding: 0 1rem;">
+        <div class="card">
+            <header style="border-bottom: 1px solid var(--glass-border); padding-bottom: 2rem; margin-bottom: 2rem;">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                    <div>
+                        <h1 th:text="${job.title}" style="font-size: 2.5rem;">Job Title</h1>
+                        <p style="font-size: 1.25rem; color: var(--primary); font-weight: 600;" th:text="${job.employer.name}">Company Name</p>
+                    </div>
+                    <div th:text="'Posted on ' + ${#temporals.format(job.postedAt, 'dd MMM yyyy')}" style="color: var(--text-muted); font-size: 0.9rem;"></div>
+                </div>
+                
+                <div style="display: flex; gap: 2rem; margin-top: 2rem;">
+                    <div class="stat-card" style="flex: 1; background: rgba(255,255,255,0.03);">
+                        <p style="font-size: 0.8rem; text-transform: uppercase;">Location</p>
+                        <h4 th:text="${job.location}">Remote</h4>
+                    </div>
+                    <div class="stat-card" style="flex: 1; background: rgba(255,255,255,0.03);">
+                        <p style="font-size: 0.8rem; text-transform: uppercase;">Salary</p>
+                        <h4 th:text="'$' + ${#numbers.formatDecimal(job.salary, 0, 'COMMA', 0, 'POINT')}">$120,000</h4>
+                    </div>
+                    <div class="stat-card" style="flex: 1; background: rgba(255,255,255,0.03);">
+                        <p style="font-size: 0.8rem; text-transform: uppercase;">Experience</p>
+                        <h4 th:text="${job.experience}">Mid Level</h4>
+                    </div>
+                </div>
+            </header>
+
+            <section>
+                <h3>Description</h3>
+                <div th:text="${job.description}" style="margin: 1.5rem 0; white-space: pre-wrap; color: var(--text-muted);"></div>
+                
+                <h3 style="margin-top: 2rem;">Required Skills</h3>
+                <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 1rem;">
+                    <span th:each="skill : ${#strings.arraySplit(job.skillsRequired, ',')}" class="badge" style="background: var(--surface); border: 1px solid var(--glass-border);" th:text="${skill.trim()}">Java</span>
+                </div>
+            </section>
+
+            <footer style="margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--glass-border);">
+                <div sec:authorize="hasRole('STUDENT')">
+                    <h3>Apply for this position</h3>
+                    <p style="color: var(--text-muted); margin-bottom: 2rem;">Please upload your resume (PDF/DOC) to submit your application.</p>
+                    
+                    <div th:if="${error}" style="background: rgba(239, 68, 68, 0.2); border: 1px solid var(--danger); padding: 1rem; border-radius: var(--radius); margin-bottom: 2rem; color: var(--danger);" th:text="${error}"></div>
+
+                    <form th:action="@{/apply/{id}(id=${job.id})}" method="post" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label>Upload Resume</label>
+                            <input type="file" name="resume" class="form-control" accept=".pdf,.doc,.docx" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="padding: 1rem 3rem;">Submit Application</button>
+                    </form>
+                </div>
+                
+                <div sec:authorize="isAnonymous()" style="text-align: center;">
+                    <p>Please <a th:href="@{/login}" style="color: var(--primary);">login as a Student</a> to apply for this job.</p>
+                </div>
+
+                <div sec:authorize="hasRole('EMPLOYER')" th:if="${#authentication.name == job.employer.email}">
+                    <a th:href="@{/applicants/{id}(id=${job.id})}" class="btn btn-primary">View Applicants for this Job</a>
+                </div>
+            </footer>
+        </div>
+    </div>
+</body>
+</html>

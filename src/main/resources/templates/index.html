@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html th:replace="~{layout :: layout(~{::content}, 'Home - CareerFlow')}">
+<body>
+    <div th:fragment="content">
+        <header class="hero">
+            <h1>Find Your <span style="background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Dream Job</span> Today</h1>
+            <p>Connect with top employers and take the next step in your professional journey. Hundreds of opportunities waiting for you.</p>
+            <div style="display: flex; gap: 1rem; justify-content: center;">
+                <a th:href="@{/jobs}" class="btn btn-primary">Browse Jobs</a>
+                <a th:href="@{/register}" class="btn btn-outline" sec:authorize="isAnonymous()">Join as Employer</a>
+            </div>
+        </header>
+
+        <section class="grid grid-3">
+            <h2 style="grid-column: 1/-1; text-align: center; margin-bottom: 1rem;">Featured Opportunities</h2>
+            <div th:each="job : ${jobs}" class="card">
+                <h3 th:text="${job.title}">Software Engineer</h3>
+                <p style="color: var(--primary); font-weight: 600;" th:text="${job.employer.name}">Google</p>
+                <div style="margin: 1rem 0; font-size: 0.9rem; color: var(--text-muted);">
+                    <span th:text="${job.location}">San Francisco, CA</span> &bull; 
+                    <span th:text="${job.category}">Engineering</span>
+                </div>
+                <p th:text="${#strings.abbreviate(job.description, 100)}"></p>
+                <a th:href="@{/jobs/{id}(id=${job.id})}" class="btn btn-outline" style="margin-top: 1.5rem; width: 100%;">View Details</a>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
