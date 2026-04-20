@@ -95,10 +95,10 @@ mvn spring-boot:run
 
 ## 📸 Screenshots
 ### Dashboard
-(![Dashboard](image-2.png))
+![Dashboard](image-2.png)
 
 ### Registeration Page
-(![Registeration](image-1.png))
+![Registeration](image-1.png)
 
 ### Login Page
 ![Login](image-3.png)
