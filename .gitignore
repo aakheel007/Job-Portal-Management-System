@@ -1,0 +1,9 @@
+target/
+uploads/
+.classpath
+.project
+.factorypath
+.settings/
+.idea/
+*.class
+*.log
